@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.generator.dao.KZsOrderPayDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.generator.entity.KZsOrderPayEntity" id="kZsOrderPayMap">
+        <result property="id" column="id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="mid" column="mid"/>
+        <result property="num" column="num"/>
+        <result property="price" column="price"/>
+
+        <result property="orderNo" column="order_no"/>
+        <result property="isPay" column="is_pay"/>
+        <result property="isSettle" column="is_settle"/>
+        <result property="settleTime" column="settle_time"/>
+        <result property="settleMoney" column="settle_money"/>
+        <result property="settleServiceMoney" column="settle_service_money"/>
+        <result property="createTime" column="create_time"/>
+        <result property="actualcosprice" column="actualCosPrice"/>
+        <result property="actualfee" column="actualFee"/>
+        <result property="estimatecosprice" column="estimateCosPrice"/>
+        <result property="commissionrate" column="commissionRate"/>
+        <result property="estimatefee" column="estimateFee"/>
+        <result property="finalrate" column="finalRate"/>
+        <result property="cid1" column="cid1"/>
+        <result property="frozenskunum" column="frozenSkuNum"/>
+        <result property="cid2" column="cid2"/>
+        <result property="skuname" column="skuName"/>
+        <result property="skunum" column="skuNum"/>
+        <result property="skureturnnum" column="skuReturnNum"/>
+        <result property="subsiderate" column="subSideRate"/>
+        <result property="subsidyrate" column="subsidyRate"/>
+        <result property="cid3" column="cid3"/>
+        <result property="validcode" column="validCode"/>
+        <result property="popid" column="popId"/>
+        <result property="skuid" column="skuId"/>
+
+        <result property="taobao_sku_id" column="taobao_sku_id"/>
+        <result property="taobao_act_id" column="taobao_act_id"/>
+        <result property="finishTime" column="finish_time"/>
+        <result property="orderTime" column="order_time"/>
+        <result property="payMonth" column="pay_month"/>
+        <result property="yugu_money" column="yugu_money"/>
+    </resultMap>
+
+
+</mapper>

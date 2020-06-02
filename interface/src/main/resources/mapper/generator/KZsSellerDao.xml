@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.generator.dao.KZsSellerDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.generator.entity.KZsSellerEntity" id="kZsSellerMap">
+        <result property="id" column="id"/>
+        <result property="shopid" column="shopId"/>
+        <result property="sellerNickname" column="seller_nickname"/>
+        <result property="sellerTitle" column="seller_title"/>
+        <result property="type" column="type"/>
+        <result property="url" column="url"/>
+        <result property="qq" column="qq"/>
+        <result property="weixinName" column="weixin_name"/>
+        <result property="operation" column="operation"/>
+        <result property="mobile" column="mobile"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="state" column="state"/>
+        <result property="mid" column="mid"/>
+        <result property="lockTime" column="lock_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="taobaoActId" column="taobao_act_id"/>
+        <result property="isHezuo" column="is_hezuo"/>
+    </resultMap>
+
+
+</mapper>

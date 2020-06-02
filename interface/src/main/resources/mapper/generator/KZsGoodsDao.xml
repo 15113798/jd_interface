@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.generator.dao.KZsGoodsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.generator.entity.KZsGoodsEntity" id="kZsGoodsMap">
+        <result property="id" column="id"/>
+        <result property="goodsUrl" column="goods_url"/>
+        <result property="logoImg" column="logo_img"/>
+        <result property="title" column="title"/>
+        <result property="price" column="price"/>
+        <result property="mid" column="mid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="skuid" column="skuId"/>
+        <result property="unitprice" column="unitPrice"/>
+        <result property="materialurl" column="materialUrl"/>
+        <result property="enddate" column="endDate"/>
+        <result property="isfreefreightrisk" column="isFreeFreightRisk"/>
+        <result property="isfreeshipping" column="isFreeShipping"/>
+        <result property="commisionratiowl" column="commisionRatioWl"/>
+        <result property="commisionratiopc" column="commisionRatioPc"/>
+        <result property="imgurl" column="imgUrl"/>
+        <result property="vid" column="vid"/>
+        <result property="cidname" column="cidName"/>
+        <result property="cid" column="cid"/>
+        <result property="cid2" column="cid2"/>
+        <result property="cid2name" column="cid2Name"/>
+        <result property="cid3" column="cid3"/>
+        <result property="cid3name" column="cid3Name"/>
+        <result property="wlunitprice" column="wlUnitPrice"/>
+        <result property="isseckill" column="isSeckill"/>
+        <result property="inordercount" column="inOrderCount"/>
+        <result property="shopid" column="shopId"/>
+        <result property="isjdsale" column="isJdSale"/>
+        <result property="goodsname" column="goodsName"/>
+        <result property="startdate" column="startDate"/>
+        <result property="state" column="state"/>
+        <result property="commissionratenow" column="commissionRateNow"/>
+    </resultMap>
+
+
+</mapper>

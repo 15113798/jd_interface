@@ -1,0 +1,94 @@
+swagger: '2.0'
+info:
+  description: 为API生，为框架死，为debug奋斗一辈子；吃符号亏，上大小写的当，最后死在需求上   ------- 梦旋飞
+  version: 1.0.0
+  title: 开发平台
+
+basePath: /jd_interface
+
+schemes:
+  - http
+
+#认证
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "token"
+    in: "header"
+
+#定义接口数据
+paths:
+
+
+  /jDController/getProductInfo:
+    post:
+      tags:
+        - 公共接口
+      summary: 根据商品url获取商品信息。返回参考https://union.jd.com/openplatform/api/10422
+      produces:
+        - application/json
+      parameters:
+        - name: url
+          description: 商品链接
+          in: query
+          type: string
+          required: true
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/R'
+
+
+
+  /jDController/getOrder:
+    post:
+      tags:
+        - 公共接口
+      summary: 获取订单列表
+      produces:
+        - application/json
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/R'
+
+
+
+  /jDController/getoldOrder:
+    post:
+      tags:
+        - 公共接口
+      summary: 获取之前的订单
+      produces:
+        - application/json
+      parameters:
+        - name: startTime
+          description: 开始时间
+          in: query
+          type: string
+          required: true
+        - name: endTime
+          description: 结束时间
+          in: query
+          type: string
+          required: true
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/R'
+
+
+
+
+#定义数据模型
+definitions:
+  R:
+      type: object
+      properties:
+        code:
+          description: 状态码 0：成功  非0：失败
+          type: integer
+          format: int32
+        msg:
+          description: 失败原因
+          type: string
