@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -416,10 +417,27 @@ public class JdController {
                 KZsGoodsEntity findEntity = list.get(0);
                 entity.setId(findEntity.getId());
                 entity.setUpdateTime(new Date());
-                
+                KZsGoodsEntity fingGodsEntity = list.get(0);
+                BigDecimal oldWl = fingGodsEntity.getCommisionratiowl();
+                DecimalFormat df2 =new DecimalFormat("#.00");
+                BigDecimal newWl = entity.getCommisionratiowl();
 
+
+                // 四舍五入
+                BigDecimal value = new BigDecimal(newWl.toString()).setScale(2,BigDecimal.ROUND_HALF_UP);
+                // 不足两位小数补0
+                DecimalFormat decimalFormat = new DecimalFormat("0.00#");
+                BigDecimal newWlBig = new BigDecimal(decimalFormat.format(value));
+
+
+                if(oldWl.compareTo(newWlBig) != 0 ){
+                    entity.setCommisionratiowl(null);
+                    entity.setState(2);
+                }
+                entity.setCommissionratenow(newWlBig);
                 goodsService.updateById(entity);
             }else{
+                entity.setCommissionratenow(new BigDecimal(good.getCommisionRatioWl()));
                 goodsService.save(entity);
             }
         }
