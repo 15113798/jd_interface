@@ -23,6 +23,7 @@
         <result property="updateTime" column="update_time"/>
         <result property="taobaoActId" column="taobao_act_id"/>
         <result property="isHezuo" column="is_hezuo"/>
+        <result property="allot" column="allot"/>
     </resultMap>
 
 

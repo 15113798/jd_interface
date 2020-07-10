@@ -23,7 +23,7 @@ import io.renren.common.utils.R;
  *
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-06-02 22:09:51
+ * @date 2020-07-09 17:40:10
  */
 @RestController
 @RequestMapping("generator/kzsgoods")

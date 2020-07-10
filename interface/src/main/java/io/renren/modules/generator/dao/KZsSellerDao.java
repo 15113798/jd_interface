@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-05-03 22:01:07
+ * @date 2020-07-10 12:14:26
  */
 @Mapper
 public interface KZsSellerDao extends BaseMapper<KZsSellerEntity> {

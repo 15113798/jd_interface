@@ -17,7 +17,18 @@
         <result property="createTime" column="create_time"/>
         <result property="state" column="state"/>
         <result property="updateTime" column="update_time"/>
+        <result property="url" column="url"/>
+        <result property="qq" column="qq"/>
+        <result property="weixinName" column="weixin_name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="isHezuo" column="is_hezuo"/>
         <result property="taobaoActId" column="taobao_act_id"/>
+        <result property="allot" column="allot"/>
+        <result property="skucnt" column="skuCnt"/>
+        <result property="ordercntin" column="orderCntIn"/>
+        <result property="servicefee" column="serviceFee"/>
+        <result property="ygservicefee" column="ygServiceFee"/>
+        <result property="activitystatus" column="activityStatus"/>
     </resultMap>
 
 

@@ -19,7 +19,7 @@ public class Scheduler{
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    //每隔5分钟执行一次
+    //每隔480秒执行一次
     @Scheduled(fixedRate = 480000)
     public void testTasks() throws JdException, ParseException {
         System.out.println("定时任务执行时间：" + dateFormat.format(new Date()));

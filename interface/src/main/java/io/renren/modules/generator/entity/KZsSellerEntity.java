@@ -12,7 +12,7 @@ import lombok.Data;
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-05-03 22:01:07
+ * @date 2020-07-10 12:14:26
  */
 @Data
 @TableName("k_zs_seller")
@@ -69,7 +69,7 @@ public class KZsSellerEntity implements Serializable {
 	 */
 	private Date createTime;
 	/**
-	 * 状态： 0提交 1
+	 * 状态： 0提交
 	 */
 	private Integer state;
 	/**
@@ -92,5 +92,9 @@ public class KZsSellerEntity implements Serializable {
 	 * 是否合作 1是 2否
 	 */
 	private Integer isHezuo;
+	/**
+	 * 分配状态： 1已分配 2未分配
+	 */
+	private Integer allot;
 
 }

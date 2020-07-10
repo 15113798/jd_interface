@@ -13,7 +13,7 @@ import lombok.Data;
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-06-02 22:09:51
+ * @date 2020-07-09 17:40:10
  */
 @Data
 @TableName("k_zs_goods")
@@ -65,10 +65,7 @@ public class KZsGoodsEntity implements Serializable {
 	 * 商品落地页-新增
 	 */
 	private String materialurl;
-	/**
-	 * 推广结束日期
-	 */
-	private Date enddate;
+
 	/**
 	 * 是否支持运费险(1:是,0:否)-新增
 	 */
@@ -141,10 +138,7 @@ public class KZsGoodsEntity implements Serializable {
 	 * 商品名称
 	 */
 	private String goodsname;
-	/**
-	 * 推广开始日期
-	 */
-	private Date startdate;
+
 	/**
 	 * 状态： 1正常 2挖单待处理 3挖单已处理
 	 */
@@ -153,5 +147,49 @@ public class KZsGoodsEntity implements Serializable {
 	 * 现在的佣金比率
 	 */
 	private BigDecimal commissionratenow;
+	/**
+	 * 分配状态： 1已分配 2未分配
+	 */
+	private Integer allot;
+	/**
+	 * 京东活动id（新）
+	 */
+	private String activityid;
+	/**
+	 * 佣金比例（新）
+	 */
+	private BigDecimal commissionrate;
+	/**
+	 * 参与时间-开始时间（新）
+	 */
+	private String starttime;
+	/**
+	 * 参与时间-结束时间（新）
+	 */
+	private String endtime;
+	/**
+	 * 商品图片路径（新）
+	 */
+	private String imageurl;
+	/**
+	 * 引单量（新）
+	 */
+	private Integer ordercntin;
+	/**
+	 * 服务费比例（新）
+	 */
+	private BigDecimal servicerate;
+	/**
+	 * 店铺名称（新）
+	 */
+	private String shopname;
+	/**
+	 * 商品名称（新）
+	 */
+	private String skuname;
+	/**
+	 * 状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止
+	 */
+	private Integer status;
 
 }

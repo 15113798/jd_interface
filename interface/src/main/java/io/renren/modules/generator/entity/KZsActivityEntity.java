@@ -3,6 +3,7 @@ package io.renren.modules.generator.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.math.BigDecimal;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.Data;
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-04-25 01:30:10
+ * @date 2020-07-09 15:29:23
  */
 @Data
 @TableName("k_zs_activity")
@@ -25,9 +26,9 @@ public class KZsActivityEntity implements Serializable {
 	@TableId
 	private Integer id;
 	/**
-	 * 类型： 1公有活动 2自有活动
+	 * 类型
 	 */
-	private Integer type;
+	private String type;
 	/**
 	 * 活动标题
 	 */
@@ -69,8 +70,52 @@ public class KZsActivityEntity implements Serializable {
 	 */
 	private Date updateTime;
 	/**
-	 * 淘宝的活动id
+	 * 店铺链接
+	 */
+	private String url;
+	/**
+	 * qq
+	 */
+	private String qq;
+	/**
+	 * 微信号
+	 */
+	private String weixinName;
+	/**
+	 * 手机号码
+	 */
+	private String mobile;
+	/**
+	 * 是否合作 1是 2否
+	 */
+	private Integer isHezuo;
+	/**
+	 * 京东的活动id
 	 */
 	private String taobaoActId;
+	/**
+	 * 分配状态： 1已分配 2未分配
+	 */
+	private Integer allot;
+	/**
+	 * 提报商品数量(新)
+	 */
+	private Integer skucnt;
+	/**
+	 * 订单引入量（新）
+	 */
+	private Integer ordercntin;
+	/**
+	 * 实际服务费（新）
+	 */
+	private BigDecimal servicefee;
+	/**
+	 * 预估服务费（新）
+	 */
+	private BigDecimal ygservicefee;
+	/**
+	 * 活动状态(2为进行中，5为活动结束）
+	 */
+	private Integer activitystatus;
 
 }

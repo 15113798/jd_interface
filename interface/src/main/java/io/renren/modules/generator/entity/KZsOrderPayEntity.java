@@ -29,6 +29,8 @@ public class KZsOrderPayEntity implements Serializable {
 	 * 商品id
 	 */
 	private Integer goodsId;
+
+
 	/**
 	 * 活动id
 	 */
@@ -141,6 +143,8 @@ public class KZsOrderPayEntity implements Serializable {
 	private Date orderTime;
 	private Date payMonth;
 	private String yugu_money;
+
+	private Integer shopid;
 
 
 }

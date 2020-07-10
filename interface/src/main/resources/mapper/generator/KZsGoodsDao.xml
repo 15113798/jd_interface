@@ -38,6 +38,17 @@
         <result property="startdate" column="startDate"/>
         <result property="state" column="state"/>
         <result property="commissionratenow" column="commissionRateNow"/>
+        <result property="allot" column="allot"/>
+        <result property="activityid" column="activityId"/>
+        <result property="commissionrate" column="commissionRate"/>
+        <result property="starttime" column="startTime"/>
+        <result property="endtime" column="endTime"/>
+        <result property="imageurl" column="imageUrl"/>
+        <result property="ordercntin" column="orderCntIn"/>
+        <result property="servicerate" column="serviceRate"/>
+        <result property="shopname" column="shopName"/>
+        <result property="skuname" column="skuName"/>
+        <result property="status" column="status"/>
     </resultMap>
 
 

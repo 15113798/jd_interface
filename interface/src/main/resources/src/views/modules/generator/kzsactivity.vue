@@ -6,8 +6,8 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('generator:kzsgoods:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('generator:kzsgoods:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button v-if="isAuth('generator:kzsactivity:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('generator:kzsactivity:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -26,37 +26,55 @@
         prop="id"
         header-align="center"
         align="center"
-        label="id">
+        label="活动表">
       </el-table-column>
       <el-table-column
-        prop="goodsUrl"
+        prop="type"
         header-align="center"
         align="center"
-        label="产品链接">
+        label="类型">
       </el-table-column>
       <el-table-column
-        prop="logoImg"
+        prop="activityTitle"
         header-align="center"
         align="center"
-        label="商品图片">
+        label="活动标题">
       </el-table-column>
       <el-table-column
-        prop="title"
+        prop="senceType"
         header-align="center"
         align="center"
-        label="商品名称">
+        label="活动场景类型: 1普通招商">
       </el-table-column>
       <el-table-column
-        prop="price"
+        prop="startTime"
         header-align="center"
         align="center"
-        label="价格">
+        label="开始时间">
+      </el-table-column>
+      <el-table-column
+        prop="endTime"
+        header-align="center"
+        align="center"
+        label="结束时间">
+      </el-table-column>
+      <el-table-column
+        prop="remark"
+        header-align="center"
+        align="center"
+        label="">
       </el-table-column>
       <el-table-column
         prop="mid"
         header-align="center"
         align="center"
-        label="所有者id">
+        label="操作人id">
+      </el-table-column>
+      <el-table-column
+        prop="allianceId"
+        header-align="center"
+        align="center"
+        label="联盟账号id">
       </el-table-column>
       <el-table-column
         prop="createTime"
@@ -65,160 +83,52 @@
         label="创建时间">
       </el-table-column>
       <el-table-column
+        prop="state"
+        header-align="center"
+        align="center"
+        label="状态: 0关闭 1开启">
+      </el-table-column>
+      <el-table-column
         prop="updateTime"
         header-align="center"
         align="center"
         label="更新时间">
       </el-table-column>
       <el-table-column
-        prop="skuid"
+        prop="url"
         header-align="center"
         align="center"
-        label="商品ID-新增">
+        label="店铺链接">
       </el-table-column>
       <el-table-column
-        prop="unitprice"
+        prop="qq"
         header-align="center"
         align="center"
-        label="商品单价-新增">
+        label="qq">
       </el-table-column>
       <el-table-column
-        prop="materialurl"
+        prop="weixinName"
         header-align="center"
         align="center"
-        label="商品落地页-新增">
+        label="微信号">
       </el-table-column>
       <el-table-column
-        prop="enddate"
+        prop="mobile"
         header-align="center"
         align="center"
-        label="推广结束日期">
+        label="手机号码">
       </el-table-column>
       <el-table-column
-        prop="isfreefreightrisk"
+        prop="isHezuo"
         header-align="center"
         align="center"
-        label="是否支持运费险(1:是,0:否)-新增">
+        label="是否合作 1是 2否">
       </el-table-column>
       <el-table-column
-        prop="isfreeshipping"
+        prop="taobaoActId"
         header-align="center"
         align="center"
-        label="是否包邮(1:是,0:否,2)-新增">
-      </el-table-column>
-      <el-table-column
-        prop="commisionratiowl"
-        header-align="center"
-        align="center"
-        label="无线佣金比例-新增">
-      </el-table-column>
-      <el-table-column
-        prop="commisionratiopc"
-        header-align="center"
-        align="center"
-        label="PC佣金比例-新增">
-      </el-table-column>
-      <el-table-column
-        prop="imgurl"
-        header-align="center"
-        align="center"
-        label="图片地址">
-      </el-table-column>
-      <el-table-column
-        prop="vid"
-        header-align="center"
-        align="center"
-        label="商家id-新增">
-      </el-table-column>
-      <el-table-column
-        prop="cidname"
-        header-align="center"
-        align="center"
-        label="一级类目名称-新增">
-      </el-table-column>
-      <el-table-column
-        prop="cid"
-        header-align="center"
-        align="center"
-        label="一级类目ID-新增">
-      </el-table-column>
-      <el-table-column
-        prop="cid2"
-        header-align="center"
-        align="center"
-        label="二级类目ID-新增">
-      </el-table-column>
-      <el-table-column
-        prop="cid2name"
-        header-align="center"
-        align="center"
-        label="二级类目名称">
-      </el-table-column>
-      <el-table-column
-        prop="cid3"
-        header-align="center"
-        align="center"
-        label="三级类目id">
-      </el-table-column>
-      <el-table-column
-        prop="cid3name"
-        header-align="center"
-        align="center"
-        label="三级类目名称">
-      </el-table-column>
-      <el-table-column
-        prop="wlunitprice"
-        header-align="center"
-        align="center"
-        label="商品无线京东价（单价为-1表示未查询到该商品单价）">
-      </el-table-column>
-      <el-table-column
-        prop="isseckill"
-        header-align="center"
-        align="center"
-        label="是否秒杀(1:是,0:否)">
-      </el-table-column>
-      <el-table-column
-        prop="inordercount"
-        header-align="center"
-        align="center"
-        label="30天引单数量">
-      </el-table-column>
-      <el-table-column
-        prop="shopid"
-        header-align="center"
-        align="center"
-        label="店铺ID">
-      </el-table-column>
-      <el-table-column
-        prop="isjdsale"
-        header-align="center"
-        align="center"
-        label="是否自营(1:是,0:否)">
-      </el-table-column>
-      <el-table-column
-        prop="goodsname"
-        header-align="center"
-        align="center"
-        label="商品名称">
-      </el-table-column>
-      <el-table-column
-        prop="startdate"
-        header-align="center"
-        align="center"
-        label="推广开始日期">
-      </el-table-column>
-      <el-table-column
-        prop="state"
-        header-align="center"
-        align="center"
-        label="状态： 1正常 2挖单待处理 3挖单已处理">
-      </el-table-column>
-      <el-table-column
-        prop="commissionratenow"
-        header-align="center"
-        align="center"
-        label="现在的佣金比率">
+        label="京东的活动id">
       </el-table-column>
       <el-table-column
         prop="allot"
@@ -227,64 +137,34 @@
         label="分配状态： 1已分配 2未分配">
       </el-table-column>
       <el-table-column
-        prop="activityid"
+        prop="skucnt"
         header-align="center"
         align="center"
-        label="京东活动id（新）">
-      </el-table-column>
-      <el-table-column
-        prop="commissionrate"
-        header-align="center"
-        align="center"
-        label="佣金比例（新）">
-      </el-table-column>
-      <el-table-column
-        prop="starttime"
-        header-align="center"
-        align="center"
-        label="参与时间-开始时间（新）">
-      </el-table-column>
-      <el-table-column
-        prop="endtime"
-        header-align="center"
-        align="center"
-        label="参与时间-结束时间（新）">
-      </el-table-column>
-      <el-table-column
-        prop="imageurl"
-        header-align="center"
-        align="center"
-        label="商品图片路径（新）">
+        label="提报商品数量(新)">
       </el-table-column>
       <el-table-column
         prop="ordercntin"
         header-align="center"
         align="center"
-        label="引单量（新）">
+        label="订单引入量（新）">
       </el-table-column>
       <el-table-column
-        prop="servicerate"
+        prop="servicefee"
         header-align="center"
         align="center"
-        label="服务费比例（新）">
+        label="实际服务费（新）">
       </el-table-column>
       <el-table-column
-        prop="shopname"
+        prop="ygservicefee"
         header-align="center"
         align="center"
-        label="店铺名称（新）">
+        label="预估服务费（新）">
       </el-table-column>
       <el-table-column
-        prop="skuname"
+        prop="activitystatus"
         header-align="center"
         align="center"
-        label="商品名称（新）">
-      </el-table-column>
-      <el-table-column
-        prop="status"
-        header-align="center"
-        align="center"
-        label="状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止">
+        label="活动状态(2为进行中，5为活动结束）">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -313,7 +193,7 @@
 </template>
 
 <script>
-  import AddOrUpdate from './kzsgoods-add-or-update'
+  import AddOrUpdate from './kzsactivity-add-or-update'
   export default {
     data () {
       return {
@@ -340,7 +220,7 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/generator/kzsgoods/list'),
+          url: this.$http.adornUrl('/generator/kzsactivity/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
@@ -391,7 +271,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/generator/kzsgoods/delete'),
+            url: this.$http.adornUrl('/generator/kzsactivity/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {

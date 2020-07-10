@@ -44,6 +44,8 @@
         <result property="orderTime" column="order_time"/>
         <result property="payMonth" column="pay_month"/>
         <result property="yugu_money" column="yugu_money"/>
+
+        <result property="shopid" column="shopId"/>
     </resultMap>
 
 

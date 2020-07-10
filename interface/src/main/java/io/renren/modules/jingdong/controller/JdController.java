@@ -16,6 +16,7 @@ import io.renren.modules.generator.service.KZsActivityService;
 import io.renren.modules.generator.service.KZsGoodsService;
 import io.renren.modules.generator.service.KZsOrderPayService;
 import io.renren.modules.generator.service.KZsSellerService;
+import io.renren.modules.jingdong.service.CrawlingActService;
 import jd.union.open.goods.promotiongoodsinfo.query.request.UnionOpenGoodsPromotiongoodsinfoQueryRequest;
 import jd.union.open.goods.promotiongoodsinfo.query.response.PromotionGoodsResp;
 import jd.union.open.goods.promotiongoodsinfo.query.response.UnionOpenGoodsPromotiongoodsinfoQueryResponse;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -49,7 +51,8 @@ public class JdController {
     private KZsGoodsService goodsService;
     @Autowired
     private KZsSellerService sellerService;
-
+    @Autowired
+    private CrawlingActService service;
 
     private String SERVER_URL = "https://router.jd.com/api";
     private String accessToken = "";
@@ -92,8 +95,9 @@ public class JdController {
 
 
 
-    @RequestMapping("/getOrder")
-    public R getOrder(@RequestParam Map<String, Object> params) throws JdException {
+    @RequestMapping("/getAct")
+    public R getAct(@RequestParam Map<String, Object> params) throws JdException, IOException, ParseException {
+        service.startCrawlingAct();
         return R.ok();
     }
 
@@ -103,17 +107,22 @@ public class JdController {
         JdClient client=new DefaultJdClient(SERVER_URL,accessToken,appKey,appSecret);
         UnionOpenOrderQueryRequest request=new UnionOpenOrderQueryRequest();
         OrderReq orderReq=new OrderReq();
-        orderReq.setPageSize(1000);
+        orderReq.setPageSize(500);
         orderReq.setPageNo(1);
         orderReq.setType(1);
         orderReq.setTime(time);
 
+        System.out.println("time----------->"+time);
+
         request.setOrderReq(orderReq);
         UnionOpenOrderQueryResponse response=client.execute(request);
         OrderResp[] data = response.getData();
+
         if(null == data){
+            System.out.println("time----->"+time+"<------"+0);
             return;
         }
+        System.out.println("time----->"+time+"<------"+data.length);
         for (int i = 0; i < data.length; i++) {
             OrderResp resp = data[i];
             String finishTime = String.valueOf(resp.getFinishTime());
@@ -190,6 +199,8 @@ public class JdController {
 
 
                     if(skuValidCode.equals("18")){
+
+
                         entity.setIsPay(1);
                         entity.setIsSettle(1);
                     }else{
@@ -222,8 +233,10 @@ public class JdController {
                         KZsGoodsEntity goodsEntity = goodList.get(0);
                         String id = String.valueOf(goodsEntity.getId());
                         entity.setGoodsId(Integer.parseInt(id));
+                        entity.setShopid(goodsEntity.getShopid());
                     }else{
                         entity.setGoodsId(0);
+                        entity.setShopid(0);
                     }
                     if(finishTime != null & !finishTime.equals("0")){
                         entity.setFinishTime(castDate(finishTime));
@@ -256,8 +269,6 @@ public class JdController {
                     }else{
                         orderPayService.save(entity);
                     }
-
-
                 }
             }
         }
@@ -395,9 +406,6 @@ public class JdController {
             entity.setIsjdsale(good.getIsJdSale());
             entity.setGoodsname(good.getGoodsName());
 
-
-            entity.setStartdate(castDate(good.getStartDate()));
-            entity.setEnddate(castDate(good.getEndDate()));
 
 
             String skuId = String.valueOf(good.getSkuId());

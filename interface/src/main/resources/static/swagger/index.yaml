@@ -40,11 +40,11 @@ paths:
 
 
 
-  /jDController/getOrder:
+  /jDController/getAct:
     post:
       tags:
         - 公共接口
-      summary: 获取订单列表
+      summary: 爬取活动
       produces:
         - application/json
       responses:

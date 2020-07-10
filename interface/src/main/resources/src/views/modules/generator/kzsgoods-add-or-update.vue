@@ -100,6 +100,39 @@
     <el-form-item label="现在的佣金比率" prop="commissionratenow">
       <el-input v-model="dataForm.commissionratenow" placeholder="现在的佣金比率"></el-input>
     </el-form-item>
+    <el-form-item label="分配状态： 1已分配 2未分配" prop="allot">
+      <el-input v-model="dataForm.allot" placeholder="分配状态： 1已分配 2未分配"></el-input>
+    </el-form-item>
+    <el-form-item label="京东活动id（新）" prop="activityid">
+      <el-input v-model="dataForm.activityid" placeholder="京东活动id（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="佣金比例（新）" prop="commissionrate">
+      <el-input v-model="dataForm.commissionrate" placeholder="佣金比例（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="参与时间-开始时间（新）" prop="starttime">
+      <el-input v-model="dataForm.starttime" placeholder="参与时间-开始时间（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="参与时间-结束时间（新）" prop="endtime">
+      <el-input v-model="dataForm.endtime" placeholder="参与时间-结束时间（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="商品图片路径（新）" prop="imageurl">
+      <el-input v-model="dataForm.imageurl" placeholder="商品图片路径（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="引单量（新）" prop="ordercntin">
+      <el-input v-model="dataForm.ordercntin" placeholder="引单量（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="服务费比例（新）" prop="servicerate">
+      <el-input v-model="dataForm.servicerate" placeholder="服务费比例（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="店铺名称（新）" prop="shopname">
+      <el-input v-model="dataForm.shopname" placeholder="店铺名称（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="商品名称（新）" prop="skuname">
+      <el-input v-model="dataForm.skuname" placeholder="商品名称（新）"></el-input>
+    </el-form-item>
+    <el-form-item label="状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止" prop="status">
+      <el-input v-model="dataForm.status" placeholder="状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止"></el-input>
+    </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
@@ -146,7 +179,18 @@
           goodsname: '',
           startdate: '',
           state: '',
-          commissionratenow: ''
+          commissionratenow: '',
+          allot: '',
+          activityid: '',
+          commissionrate: '',
+          starttime: '',
+          endtime: '',
+          imageurl: '',
+          ordercntin: '',
+          servicerate: '',
+          shopname: '',
+          skuname: '',
+          status: ''
         },
         dataRule: {
           goodsUrl: [
@@ -244,6 +288,39 @@
           ],
           commissionratenow: [
             { required: true, message: '现在的佣金比率不能为空', trigger: 'blur' }
+          ],
+          allot: [
+            { required: true, message: '分配状态： 1已分配 2未分配不能为空', trigger: 'blur' }
+          ],
+          activityid: [
+            { required: true, message: '京东活动id（新）不能为空', trigger: 'blur' }
+          ],
+          commissionrate: [
+            { required: true, message: '佣金比例（新）不能为空', trigger: 'blur' }
+          ],
+          starttime: [
+            { required: true, message: '参与时间-开始时间（新）不能为空', trigger: 'blur' }
+          ],
+          endtime: [
+            { required: true, message: '参与时间-结束时间（新）不能为空', trigger: 'blur' }
+          ],
+          imageurl: [
+            { required: true, message: '商品图片路径（新）不能为空', trigger: 'blur' }
+          ],
+          ordercntin: [
+            { required: true, message: '引单量（新）不能为空', trigger: 'blur' }
+          ],
+          servicerate: [
+            { required: true, message: '服务费比例（新）不能为空', trigger: 'blur' }
+          ],
+          shopname: [
+            { required: true, message: '店铺名称（新）不能为空', trigger: 'blur' }
+          ],
+          skuname: [
+            { required: true, message: '商品名称（新）不能为空', trigger: 'blur' }
+          ],
+          status: [
+            { required: true, message: '状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止不能为空', trigger: 'blur' }
           ]
         }
       }
@@ -293,6 +370,17 @@
                 this.dataForm.startdate = data.kZsGoods.startdate
                 this.dataForm.state = data.kZsGoods.state
                 this.dataForm.commissionratenow = data.kZsGoods.commissionratenow
+                this.dataForm.allot = data.kZsGoods.allot
+                this.dataForm.activityid = data.kZsGoods.activityid
+                this.dataForm.commissionrate = data.kZsGoods.commissionrate
+                this.dataForm.starttime = data.kZsGoods.starttime
+                this.dataForm.endtime = data.kZsGoods.endtime
+                this.dataForm.imageurl = data.kZsGoods.imageurl
+                this.dataForm.ordercntin = data.kZsGoods.ordercntin
+                this.dataForm.servicerate = data.kZsGoods.servicerate
+                this.dataForm.shopname = data.kZsGoods.shopname
+                this.dataForm.skuname = data.kZsGoods.skuname
+                this.dataForm.status = data.kZsGoods.status
               }
             })
           }
@@ -338,7 +426,18 @@
                 'goodsname': this.dataForm.goodsname,
                 'startdate': this.dataForm.startdate,
                 'state': this.dataForm.state,
-                'commissionratenow': this.dataForm.commissionratenow
+                'commissionratenow': this.dataForm.commissionratenow,
+                'allot': this.dataForm.allot,
+                'activityid': this.dataForm.activityid,
+                'commissionrate': this.dataForm.commissionrate,
+                'starttime': this.dataForm.starttime,
+                'endtime': this.dataForm.endtime,
+                'imageurl': this.dataForm.imageurl,
+                'ordercntin': this.dataForm.ordercntin,
+                'servicerate': this.dataForm.servicerate,
+                'shopname': this.dataForm.shopname,
+                'skuname': this.dataForm.skuname,
+                'status': this.dataForm.status
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
