@@ -89,12 +89,6 @@
         label="商品落地页-新增">
       </el-table-column>
       <el-table-column
-        prop="enddate"
-        header-align="center"
-        align="center"
-        label="推广结束日期">
-      </el-table-column>
-      <el-table-column
         prop="isfreefreightrisk"
         header-align="center"
         align="center"
@@ -203,12 +197,6 @@
         label="商品名称">
       </el-table-column>
       <el-table-column
-        prop="startdate"
-        header-align="center"
-        align="center"
-        label="推广开始日期">
-      </el-table-column>
-      <el-table-column
         prop="state"
         header-align="center"
         align="center"
@@ -285,6 +273,12 @@
         header-align="center"
         align="center"
         label="状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止">
+      </el-table-column>
+      <el-table-column
+        prop="taobaoActId"
+        header-align="center"
+        align="center"
+        label="京东的活动id">
       </el-table-column>
       <el-table-column
         fixed="right"

@@ -22,7 +22,7 @@ public class Scheduler{
     //每隔480秒执行一次
     @Scheduled(fixedRate = 480000)
     public void testTasks() throws JdException, ParseException {
-        System.out.println("定时任务执行时间：" + dateFormat.format(new Date()));
+        System.out.println("订单定时任务执行时间：" + dateFormat.format(new Date()));
 
         List<String> timeList = getCurrentTime();
         for (int i =0 ;i<timeList.size();i++){

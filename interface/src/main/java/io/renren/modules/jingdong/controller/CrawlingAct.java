@@ -21,13 +21,13 @@ public class CrawlingAct {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    /*//每隔480秒执行一次
-    @Scheduled(fixedRate = 480000)
+    //每隔1小时执行一次
+    @Scheduled(fixedRate = 600000)
     public void testTasks() throws JdException, ParseException, IOException {
-        System.out.println("定时任务执行时间：" + dateFormat.format(new Date()));
+        System.out.println("活动定时任务执行时间：" + dateFormat.format(new Date()));
         service.startCrawlingAct();
 
-    }*/
+    }
 
 
 

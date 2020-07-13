@@ -34,9 +34,6 @@
     <el-form-item label="商品落地页-新增" prop="materialurl">
       <el-input v-model="dataForm.materialurl" placeholder="商品落地页-新增"></el-input>
     </el-form-item>
-    <el-form-item label="推广结束日期" prop="enddate">
-      <el-input v-model="dataForm.enddate" placeholder="推广结束日期"></el-input>
-    </el-form-item>
     <el-form-item label="是否支持运费险(1:是,0:否)-新增" prop="isfreefreightrisk">
       <el-input v-model="dataForm.isfreefreightrisk" placeholder="是否支持运费险(1:是,0:否)-新增"></el-input>
     </el-form-item>
@@ -91,9 +88,6 @@
     <el-form-item label="商品名称" prop="goodsname">
       <el-input v-model="dataForm.goodsname" placeholder="商品名称"></el-input>
     </el-form-item>
-    <el-form-item label="推广开始日期" prop="startdate">
-      <el-input v-model="dataForm.startdate" placeholder="推广开始日期"></el-input>
-    </el-form-item>
     <el-form-item label="状态： 1正常 2挖单待处理 3挖单已处理" prop="state">
       <el-input v-model="dataForm.state" placeholder="状态： 1正常 2挖单待处理 3挖单已处理"></el-input>
     </el-form-item>
@@ -133,6 +127,9 @@
     <el-form-item label="状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止" prop="status">
       <el-input v-model="dataForm.status" placeholder="状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止"></el-input>
     </el-form-item>
+    <el-form-item label="京东的活动id" prop="taobaoActId">
+      <el-input v-model="dataForm.taobaoActId" placeholder="京东的活动id"></el-input>
+    </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
@@ -158,7 +155,6 @@
           skuid: '',
           unitprice: '',
           materialurl: '',
-          enddate: '',
           isfreefreightrisk: '',
           isfreeshipping: '',
           commisionratiowl: '',
@@ -177,7 +173,6 @@
           shopid: '',
           isjdsale: '',
           goodsname: '',
-          startdate: '',
           state: '',
           commissionratenow: '',
           allot: '',
@@ -190,7 +185,8 @@
           servicerate: '',
           shopname: '',
           skuname: '',
-          status: ''
+          status: '',
+          taobaoActId: ''
         },
         dataRule: {
           goodsUrl: [
@@ -222,9 +218,6 @@
           ],
           materialurl: [
             { required: true, message: '商品落地页-新增不能为空', trigger: 'blur' }
-          ],
-          enddate: [
-            { required: true, message: '推广结束日期不能为空', trigger: 'blur' }
           ],
           isfreefreightrisk: [
             { required: true, message: '是否支持运费险(1:是,0:否)-新增不能为空', trigger: 'blur' }
@@ -280,9 +273,6 @@
           goodsname: [
             { required: true, message: '商品名称不能为空', trigger: 'blur' }
           ],
-          startdate: [
-            { required: true, message: '推广开始日期不能为空', trigger: 'blur' }
-          ],
           state: [
             { required: true, message: '状态： 1正常 2挖单待处理 3挖单已处理不能为空', trigger: 'blur' }
           ],
@@ -321,6 +311,9 @@
           ],
           status: [
             { required: true, message: '状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止不能为空', trigger: 'blur' }
+          ],
+          taobaoActId: [
+            { required: true, message: '京东的活动id不能为空', trigger: 'blur' }
           ]
         }
       }
@@ -348,7 +341,6 @@
                 this.dataForm.skuid = data.kZsGoods.skuid
                 this.dataForm.unitprice = data.kZsGoods.unitprice
                 this.dataForm.materialurl = data.kZsGoods.materialurl
-                this.dataForm.enddate = data.kZsGoods.enddate
                 this.dataForm.isfreefreightrisk = data.kZsGoods.isfreefreightrisk
                 this.dataForm.isfreeshipping = data.kZsGoods.isfreeshipping
                 this.dataForm.commisionratiowl = data.kZsGoods.commisionratiowl
@@ -367,7 +359,6 @@
                 this.dataForm.shopid = data.kZsGoods.shopid
                 this.dataForm.isjdsale = data.kZsGoods.isjdsale
                 this.dataForm.goodsname = data.kZsGoods.goodsname
-                this.dataForm.startdate = data.kZsGoods.startdate
                 this.dataForm.state = data.kZsGoods.state
                 this.dataForm.commissionratenow = data.kZsGoods.commissionratenow
                 this.dataForm.allot = data.kZsGoods.allot
@@ -381,6 +372,7 @@
                 this.dataForm.shopname = data.kZsGoods.shopname
                 this.dataForm.skuname = data.kZsGoods.skuname
                 this.dataForm.status = data.kZsGoods.status
+                this.dataForm.taobaoActId = data.kZsGoods.taobaoActId
               }
             })
           }
@@ -405,7 +397,6 @@
                 'skuid': this.dataForm.skuid,
                 'unitprice': this.dataForm.unitprice,
                 'materialurl': this.dataForm.materialurl,
-                'enddate': this.dataForm.enddate,
                 'isfreefreightrisk': this.dataForm.isfreefreightrisk,
                 'isfreeshipping': this.dataForm.isfreeshipping,
                 'commisionratiowl': this.dataForm.commisionratiowl,
@@ -424,7 +415,6 @@
                 'shopid': this.dataForm.shopid,
                 'isjdsale': this.dataForm.isjdsale,
                 'goodsname': this.dataForm.goodsname,
-                'startdate': this.dataForm.startdate,
                 'state': this.dataForm.state,
                 'commissionratenow': this.dataForm.commissionratenow,
                 'allot': this.dataForm.allot,
@@ -437,7 +427,8 @@
                 'servicerate': this.dataForm.servicerate,
                 'shopname': this.dataForm.shopname,
                 'skuname': this.dataForm.skuname,
-                'status': this.dataForm.status
+                'status': this.dataForm.status,
+                'taobaoActId': this.dataForm.taobaoActId
               })
             }).then(({data}) => {
               if (data && data.code === 0) {

@@ -2,18 +2,18 @@ package io.renren.modules.generator.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
-import io.renren.modules.generator.entity.KZsGoodsEntity;
+import io.renren.modules.generator.entity.KZsJdCookierEntity;
 
 import java.util.Map;
 
 /**
- * 商品表
+ * 
  *
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-07-13 21:29:04
+ * @date 2020-07-10 15:22:47
  */
-public interface KZsGoodsService extends IService<KZsGoodsEntity> {
+public interface KZsJdCookierService extends IService<KZsJdCookierEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 }

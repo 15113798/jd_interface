@@ -11,33 +11,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.renren.modules.generator.entity.KZsGoodsEntity;
-import io.renren.modules.generator.service.KZsGoodsService;
+import io.renren.modules.generator.entity.KZsJdCookierEntity;
+import io.renren.modules.generator.service.KZsJdCookierService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
 
 
 /**
- * 商品表
+ * 
  *
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-07-13 21:29:04
+ * @date 2020-07-10 15:22:47
  */
 @RestController
-@RequestMapping("generator/kzsgoods")
-public class KZsGoodsController {
+@RequestMapping("generator/kzsjdcookier")
+public class KZsJdCookierController {
     @Autowired
-    private KZsGoodsService kZsGoodsService;
+    private KZsJdCookierService kZsJdCookierService;
 
     /**
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("generator:kzsgoods:list")
+    @RequiresPermissions("generator:kzsjdcookier:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = kZsGoodsService.queryPage(params);
+        PageUtils page = kZsJdCookierService.queryPage(params);
 
         return R.ok().put("page", page);
     }
@@ -47,20 +47,20 @@ public class KZsGoodsController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    @RequiresPermissions("generator:kzsgoods:info")
+    @RequiresPermissions("generator:kzsjdcookier:info")
     public R info(@PathVariable("id") Integer id){
-		KZsGoodsEntity kZsGoods = kZsGoodsService.getById(id);
+		KZsJdCookierEntity kZsJdCookier = kZsJdCookierService.getById(id);
 
-        return R.ok().put("kZsGoods", kZsGoods);
+        return R.ok().put("kZsJdCookier", kZsJdCookier);
     }
 
     /**
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("generator:kzsgoods:save")
-    public R save(@RequestBody KZsGoodsEntity kZsGoods){
-		kZsGoodsService.save(kZsGoods);
+    @RequiresPermissions("generator:kzsjdcookier:save")
+    public R save(@RequestBody KZsJdCookierEntity kZsJdCookier){
+		kZsJdCookierService.save(kZsJdCookier);
 
         return R.ok();
     }
@@ -69,9 +69,9 @@ public class KZsGoodsController {
      * 修改
      */
     @RequestMapping("/update")
-    @RequiresPermissions("generator:kzsgoods:update")
-    public R update(@RequestBody KZsGoodsEntity kZsGoods){
-		kZsGoodsService.updateById(kZsGoods);
+    @RequiresPermissions("generator:kzsjdcookier:update")
+    public R update(@RequestBody KZsJdCookierEntity kZsJdCookier){
+		kZsJdCookierService.updateById(kZsJdCookier);
 
         return R.ok();
     }
@@ -80,9 +80,9 @@ public class KZsGoodsController {
      * 删除
      */
     @RequestMapping("/delete")
-    @RequiresPermissions("generator:kzsgoods:delete")
+    @RequiresPermissions("generator:kzsjdcookier:delete")
     public R delete(@RequestBody Integer[] ids){
-		kZsGoodsService.removeByIds(Arrays.asList(ids));
+		kZsJdCookierService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

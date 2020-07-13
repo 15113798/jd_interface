@@ -13,7 +13,7 @@ import lombok.Data;
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-07-09 17:40:10
+ * @date 2020-07-13 21:29:04
  */
 @Data
 @TableName("k_zs_goods")
@@ -65,7 +65,6 @@ public class KZsGoodsEntity implements Serializable {
 	 * 商品落地页-新增
 	 */
 	private String materialurl;
-
 	/**
 	 * 是否支持运费险(1:是,0:否)-新增
 	 */
@@ -138,7 +137,6 @@ public class KZsGoodsEntity implements Serializable {
 	 * 商品名称
 	 */
 	private String goodsname;
-
 	/**
 	 * 状态： 1正常 2挖单待处理 3挖单已处理
 	 */
@@ -191,5 +189,9 @@ public class KZsGoodsEntity implements Serializable {
 	 * 状态（新）0待审核1已通过2已拒绝3已中止4已过期5已停止
 	 */
 	private Integer status;
+	/**
+	 * 京东的活动id
+	 */
+	private String taobaoActId;
 
 }

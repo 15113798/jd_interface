@@ -163,7 +163,7 @@ public class JdController {
                     String subsidyRate = String.valueOf(skuEntity.getSubsidyRate());
                     String frozenSkuNum = String.valueOf(skuEntity.getFrozenSkuNum());
 
-                    //从这里开始是商品赋值的逻辑
+                    /*//从这里开始是商品赋值的逻辑
                     //获取到skuid
                     //调用一次京东商品查询接口，获取到所有的商品信息集合。然后进入新增还是修改的逻辑
                     Integer addMid = 0;
@@ -171,6 +171,15 @@ public class JdController {
                     if(null != goods && 0 != goods.length)
                     {
                         addMid = addOrUpdate(goods);
+                    }*/
+                    //通过活动id和商品id去商品表获取一下mid
+                    Integer addMid = 0;
+                    QueryWrapper goodsQw = new QueryWrapper();
+                    goodsQw.eq("activityId",cpActid);
+                    goodsQw.eq("skuId",skuId);
+                    List<KZsGoodsEntity>goodsList = goodsService.list(goodsQw);
+                    if(null != goodsList && goodsList.size()!=0){
+                        addMid = goodsList.get(0).getMid();
                     }
 
                     //这个地方开始赋值。然后入库
@@ -190,7 +199,6 @@ public class JdController {
                     entity.setSubsiderate(subSideRate);
                     entity.setSubsidyrate(subsidyRate);
                     entity.setYugu_money(estimateCosPrice);
-
                     entity.setSkuname(skuName);
                     entity.setSkunum(skuNum);
                     entity.setSkureturnnum(skuReturnNum);
@@ -199,8 +207,6 @@ public class JdController {
 
 
                     if(skuValidCode.equals("18")){
-
-
                         entity.setIsPay(1);
                         entity.setIsSettle(1);
                     }else{
