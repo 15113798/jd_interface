@@ -25,6 +25,7 @@ import jd.union.open.order.query.request.UnionOpenOrderQueryRequest;
 import jd.union.open.order.query.response.OrderResp;
 import jd.union.open.order.query.response.SkuInfo;
 import jd.union.open.order.query.response.UnionOpenOrderQueryResponse;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.keyvalue.core.QueryEngine;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,7 +98,7 @@ public class JdController {
 
     @RequestMapping("/getAct")
     public R getAct(@RequestParam Map<String, Object> params) throws JdException, IOException, ParseException {
-        service.startCrawlingAct();
+        service.batchCrawlerAllProduct();
         return R.ok();
     }
 
@@ -112,22 +113,19 @@ public class JdController {
         orderReq.setType(1);
         orderReq.setTime(time);
 
-        System.out.println("time----------->"+time);
-
         request.setOrderReq(orderReq);
         UnionOpenOrderQueryResponse response=client.execute(request);
         OrderResp[] data = response.getData();
 
         if(null == data){
-            System.out.println("time----->"+time+"<------"+0);
             return;
         }
-        System.out.println("time----->"+time+"<------"+data.length);
         for (int i = 0; i < data.length; i++) {
             OrderResp resp = data[i];
             String finishTime = String.valueOf(resp.getFinishTime());
             String orderEmt = String.valueOf(resp.getOrderEmt());
             String orderId = String.valueOf(resp.getOrderId());
+            System.out.println("抓取到订单编号------------>"+orderId);
             String orderTime = String.valueOf(resp.getOrderTime());
             String parentId = String.valueOf(resp.getParentId());
             String payMonth = resp.getPayMonth();
@@ -138,7 +136,7 @@ public class JdController {
 
             SkuInfo[]skuArray =  resp.getSkuList();
 
-            String skuIds = "";
+
             if(skuArray.length != 0 ){
                 for (int j = 0; j < skuArray.length; j++) {
                     SkuInfo skuEntity = skuArray[j];
@@ -151,6 +149,11 @@ public class JdController {
                     String cid3 = String.valueOf(skuEntity.getCid3());
                     String commissionRate = String.valueOf(skuEntity.getCommissionRate());
                     String cpActid = String.valueOf(skuEntity.getCpActId());
+                    if(StringUtils.isNotEmpty(cpActid)){
+                        if(Integer.parseInt(cpActid) == 0){
+                            continue;
+                        }
+                    }
                     String estimateCosPrice = String.valueOf(skuEntity.getEstimateCosPrice());
                     String estimateFee = String.valueOf(skuEntity.getEstimateFee());
                     String finalRate =String.valueOf(skuEntity.getFinalRate());
@@ -163,17 +166,16 @@ public class JdController {
                     String subsidyRate = String.valueOf(skuEntity.getSubsidyRate());
                     String frozenSkuNum = String.valueOf(skuEntity.getFrozenSkuNum());
 
-                    /*//从这里开始是商品赋值的逻辑
+                    //从这里开始是商品赋值的逻辑
                     //获取到skuid
-                    //调用一次京东商品查询接口，获取到所有的商品信息集合。然后进入新增还是修改的逻辑
+                    //调用一次京东商品查询接口，获取到商品信息。然后进入新增还是修改的逻辑
                     Integer addMid = 0;
                     PromotionGoodsResp[]goods = findTaoBaoSkuInfo(skuId);
                     if(null != goods && 0 != goods.length)
                     {
-                        addMid = addOrUpdate(goods);
-                    }*/
+                        addMid = addOrUpdate(goods,cpActid);
+                    }
                     //通过活动id和商品id去商品表获取一下mid
-                    Integer addMid = 0;
                     QueryWrapper goodsQw = new QueryWrapper();
                     goodsQw.eq("activityId",cpActid);
                     goodsQw.eq("skuId",skuId);
@@ -182,6 +184,9 @@ public class JdController {
                         addMid = goodsList.get(0).getMid();
                     }
 
+                    PromotionGoodsResp resps = goods[0];
+                    String materUrl = resps.getMaterialUrl();
+                    String imgUrl = resps.getImgUrl();
                     //这个地方开始赋值。然后入库
                     KZsOrderPayEntity entity = new KZsOrderPayEntity();
                     entity.setMid(addMid);
@@ -204,7 +209,8 @@ public class JdController {
                     entity.setSkureturnnum(skuReturnNum);
                     entity.setValidcode(validCode);
                     entity.setOrderNo(orderId);
-
+                    entity.setMaterialurl(materUrl);
+                    entity.setImgurl(imgUrl);
 
                     if(skuValidCode.equals("18")){
                         entity.setIsPay(1);
@@ -234,15 +240,27 @@ public class JdController {
                     entity.setSkuname(skuName);
                     QueryWrapper skuWrapper = new QueryWrapper();
                     skuWrapper.eq("skuId",skuId);
+                    skuWrapper.eq("taobao_act_id",cpActid);
                     List<KZsGoodsEntity>goodList = goodsService.list(skuWrapper);
+                    KZsGoodsEntity goodsEntity = new KZsGoodsEntity();
                     if(goodList.size() != 0){
-                        KZsGoodsEntity goodsEntity = goodList.get(0);
+                        goodsEntity = goodList.get(0);
                         String id = String.valueOf(goodsEntity.getId());
                         entity.setGoodsId(Integer.parseInt(id));
                         entity.setShopid(goodsEntity.getShopid());
                     }else{
                         entity.setGoodsId(0);
                         entity.setShopid(0);
+                    }
+                    //通过shopid去查询一下shopname
+                    if(goodsEntity != null){
+                        QueryWrapper shopQW = new QueryWrapper();
+                        shopQW.eq("shopId",goodsEntity.getShopid());
+                        List<KZsSellerEntity>list = sellerService.list(shopQW);
+                        if(list != null && list.size() !=0){
+                            KZsSellerEntity entity1 = list.get(0);
+                            entity.setSkushopname(entity1.getSellerNickname());
+                        }
                     }
                     if(finishTime != null & !finishTime.equals("0")){
                         entity.setFinishTime(castDate(finishTime));
@@ -267,8 +285,9 @@ public class JdController {
                     //如果存在则做update操作，如果不存在则做新增操作
                     QueryWrapper updateWp = new QueryWrapper();
                     updateWp.eq("order_no",orderId);
+                    updateWp.eq("skuId",skuId);
                     List<KZsOrderPayEntity>updateList = orderPayService.list(updateWp);
-                    if(updateList.size() !=0){
+                    if(updateList != null & updateList.size() !=0){
                         KZsOrderPayEntity update = updateList.get(0);
                         entity.setId(update.getId());
                         orderPayService.updateById(entity);
@@ -297,6 +316,15 @@ public class JdController {
             time = everyHour.get(i);
             operationData(time);
         }
+        return R.ok();
+    }
+
+
+
+    @RequestMapping("/getoldMinuteOrder")
+    public R getoldMinuteOrder(@RequestParam Map<String, Object> params) throws JdException, ParseException {
+        String time = String.valueOf(params.get("time"));
+        operationData(time);
         return R.ok();
     }
 
@@ -374,7 +402,7 @@ public class JdController {
     //遍历商品数组
     //开始赋值
     //查询商品是否在商品表中存在，如果存在则update，如果不存在则add
-    public Integer addOrUpdate(PromotionGoodsResp[]goodsResps) throws ParseException {
+    public Integer addOrUpdate(PromotionGoodsResp[]goodsResps,String actId) throws ParseException {
         Integer addMid = 0;
 
         for (int i = 0; i < goodsResps.length; i++) {
@@ -417,6 +445,7 @@ public class JdController {
             String skuId = String.valueOf(good.getSkuId());
             QueryWrapper qw = new QueryWrapper();
             qw.eq("skuId",skuId);
+            qw.eq("taobao_act_id",actId);
             List<KZsGoodsEntity>list = goodsService.list(qw);
 
             QueryWrapper queryWrapper = new QueryWrapper();

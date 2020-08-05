@@ -4,6 +4,8 @@ import io.renren.modules.generator.entity.KZsSellerEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 卖家表
  * 
@@ -13,5 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface KZsSellerDao extends BaseMapper<KZsSellerEntity> {
-	
+
+    void batchSaveOrUpdate(List<KZsSellerEntity> list);
+
 }

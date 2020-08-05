@@ -1,6 +1,9 @@
 package io.renren.modules.generator.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -16,6 +19,9 @@ import io.renren.modules.generator.service.KZsActivityService;
 @Service("kZsActivityService")
 public class KZsActivityServiceImpl extends ServiceImpl<KZsActivityDao, KZsActivityEntity> implements KZsActivityService {
 
+    @Autowired
+    private KZsActivityDao dao;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<KZsActivityEntity> page = this.page(
@@ -24,6 +30,11 @@ public class KZsActivityServiceImpl extends ServiceImpl<KZsActivityDao, KZsActiv
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public void batchSaveOrUpdate(List<KZsActivityEntity> list) {
+        dao.batchSaveOrUpdate(list);
     }
 
 }

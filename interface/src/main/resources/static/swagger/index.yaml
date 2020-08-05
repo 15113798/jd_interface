@@ -80,6 +80,28 @@ paths:
 
 
 
+
+  /jDController/getoldMinuteOrder:
+    post:
+      tags:
+        - 公共接口
+      summary: 获取之前的订单
+      produces:
+        - application/json
+      parameters:
+        - name: time
+          description: 时间，格式YYYYMMDDmmdd
+          in: query
+          type: string
+          required: true
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/R'
+
+
+
+
 #定义数据模型
 definitions:
   R:

@@ -27,4 +27,21 @@
     </resultMap>
 
 
+
+    <insert id="batchSaveOrUpdate" parameterType="java.util.List">
+        insert into k_zs_seller (
+            shopId,seller_nickname,seller_title,create_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.shopid},#{item.sellerNickname},#{item.sellerTitle},#{item.createTime})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        seller_nickname = values(seller_nickname),
+        seller_title = values(seller_title),
+        create_time = values(create_time)
+
+
+    </insert>
+
+
 </mapper>

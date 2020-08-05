@@ -32,4 +32,32 @@
     </resultMap>
 
 
+
+    <insert id="batchSaveOrUpdate" parameterType="java.util.List">
+        insert into k_zs_activity (
+        activity_title,start_time,end_time,
+        create_time,taobao_act_id,
+        skuCnt,orderCntIn,serviceFee,ygServiceFee,activityStatus)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.activityTitle},#{item.startTime},#{item.endTime},
+            #{item.createTime},#{item.taobaoActId},
+            #{item.skucnt},
+             #{item.ordercntin},#{item.servicefee},#{item.ygservicefee},#{item.activitystatus}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        activity_title = values(activity_title),
+        start_time = values(start_time),
+        end_time = values(end_time),
+        create_time = values(create_time),
+        taobao_act_id = values(taobao_act_id),
+        skuCnt = values(skuCnt),
+        orderCntIn = values(orderCntIn),
+        serviceFee = values(serviceFee),
+        ygServiceFee = values(ygServiceFee),
+        activityStatus = values(activityStatus)
+
+    </insert>
+
 </mapper>

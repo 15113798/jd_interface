@@ -19,8 +19,8 @@ public class Scheduler{
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    //每隔480秒执行一次
-    @Scheduled(fixedRate = 480000)
+    //每隔10分钟秒执行一次
+    @Scheduled(fixedRate = 1200000)
     public void testTasks() throws JdException, ParseException {
         System.out.println("订单定时任务执行时间：" + dateFormat.format(new Date()));
 
@@ -37,9 +37,9 @@ public class Scheduler{
     public List<String> getCurrentTime(){
         List<String>timeList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-        Calendar beforeTime = Calendar.getInstance();
-        for (int i = -10;i<0;i++){
-            beforeTime.add(Calendar.MINUTE, i);// 5分钟之前的时间
+        for (int i = -15; i < 1; i++) {
+            Calendar beforeTime = Calendar.getInstance();
+            beforeTime.add(Calendar.MINUTE, i);// 3分钟之前的时间
             Date beforeD = beforeTime.getTime();
             String time = sdf.format(beforeD);
             timeList.add(time);

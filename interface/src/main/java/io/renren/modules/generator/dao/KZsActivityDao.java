@@ -4,6 +4,8 @@ import io.renren.modules.generator.entity.KZsActivityEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 活动表
  * 
@@ -13,5 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface KZsActivityDao extends BaseMapper<KZsActivityEntity> {
+
+    public void batchSaveOrUpdate(List<KZsActivityEntity> list);
 	
 }

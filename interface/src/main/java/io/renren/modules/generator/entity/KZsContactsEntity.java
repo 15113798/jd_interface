@@ -12,11 +12,11 @@ import lombok.Data;
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-08-03 18:38:04
+ * @date 2020-08-03 18:51:27
  */
 @Data
-@TableName("k_zs_jd_cookier")
-public class KZsJdCookierEntity implements Serializable {
+@TableName("k_zs_contacts")
+public class KZsContactsEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -25,20 +25,12 @@ public class KZsJdCookierEntity implements Serializable {
 	@TableId
 	private Integer id;
 	/**
-	 * cookier值
+	 * 
 	 */
-	private String cookierValue;
+	private String name;
 	/**
-	 * 修改时间
+	 * 
 	 */
-	private Date updateTime;
-	/**
-	 * 状态1有效2失效
-	 */
-	private Integer state;
-	/**
-	 * 请求次数，用来控制发送短信
-	 */
-	private Integer count;
+	private String mobile;
 
 }

@@ -2,23 +2,19 @@ package io.renren.modules.generator.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
-import io.renren.modules.generator.entity.KZsActivityEntity;
+import io.renren.modules.generator.entity.KZsContactsEntity;
 
-import java.util.List;
 import java.util.Map;
 
 /**
- * 活动表
+ * 
  *
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-07-09 15:29:23
+ * @date 2020-08-03 18:51:27
  */
-public interface KZsActivityService extends IService<KZsActivityEntity> {
+public interface KZsContactsService extends IService<KZsContactsEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
-
-    void batchSaveOrUpdate(List<KZsActivityEntity> list);
-
 }
 

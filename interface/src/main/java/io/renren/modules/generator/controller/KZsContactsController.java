@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.renren.modules.generator.entity.KZsJdCookierEntity;
-import io.renren.modules.generator.service.KZsJdCookierService;
+import io.renren.modules.generator.entity.KZsContactsEntity;
+import io.renren.modules.generator.service.KZsContactsService;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 
@@ -23,21 +23,21 @@ import io.renren.common.utils.R;
  *
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2020-08-03 18:38:04
+ * @date 2020-08-03 18:51:27
  */
 @RestController
-@RequestMapping("generator/kzsjdcookier")
-public class KZsJdCookierController {
+@RequestMapping("generator/kzscontacts")
+public class KZsContactsController {
     @Autowired
-    private KZsJdCookierService kZsJdCookierService;
+    private KZsContactsService kZsContactsService;
 
     /**
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("generator:kzsjdcookier:list")
+    @RequiresPermissions("generator:kzscontacts:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = kZsJdCookierService.queryPage(params);
+        PageUtils page = kZsContactsService.queryPage(params);
 
         return R.ok().put("page", page);
     }
@@ -47,20 +47,20 @@ public class KZsJdCookierController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    @RequiresPermissions("generator:kzsjdcookier:info")
+    @RequiresPermissions("generator:kzscontacts:info")
     public R info(@PathVariable("id") Integer id){
-		KZsJdCookierEntity kZsJdCookier = kZsJdCookierService.getById(id);
+		KZsContactsEntity kZsContacts = kZsContactsService.getById(id);
 
-        return R.ok().put("kZsJdCookier", kZsJdCookier);
+        return R.ok().put("kZsContacts", kZsContacts);
     }
 
     /**
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("generator:kzsjdcookier:save")
-    public R save(@RequestBody KZsJdCookierEntity kZsJdCookier){
-		kZsJdCookierService.save(kZsJdCookier);
+    @RequiresPermissions("generator:kzscontacts:save")
+    public R save(@RequestBody KZsContactsEntity kZsContacts){
+		kZsContactsService.save(kZsContacts);
 
         return R.ok();
     }
@@ -69,9 +69,9 @@ public class KZsJdCookierController {
      * 修改
      */
     @RequestMapping("/update")
-    @RequiresPermissions("generator:kzsjdcookier:update")
-    public R update(@RequestBody KZsJdCookierEntity kZsJdCookier){
-		kZsJdCookierService.updateById(kZsJdCookier);
+    @RequiresPermissions("generator:kzscontacts:update")
+    public R update(@RequestBody KZsContactsEntity kZsContacts){
+		kZsContactsService.updateById(kZsContacts);
 
         return R.ok();
     }
@@ -80,9 +80,9 @@ public class KZsJdCookierController {
      * 删除
      */
     @RequestMapping("/delete")
-    @RequiresPermissions("generator:kzsjdcookier:delete")
+    @RequiresPermissions("generator:kzscontacts:delete")
     public R delete(@RequestBody Integer[] ids){
-		kZsJdCookierService.removeByIds(Arrays.asList(ids));
+		kZsContactsService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

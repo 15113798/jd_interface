@@ -51,4 +51,44 @@
     </resultMap>
 
 
+
+    <insert id="batchSaveOrUpdate" parameterType="java.util.List">
+        insert into k_zs_goods (
+            goods_url,price,create_time,skuId,unitPrice,
+            materialUrl,imgUrl,shopId,activityId,startTime,endTime,
+            orderCntIn,serviceRate,shopName,skuName,status,taobao_act_id,commisionRatioWl
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.goodsUrl},#{item.price},#{item.createTime},#{item.skuid},#{item.unitprice},
+            #{item.materialurl},#{item.imgurl},#{item.shopid},#{item.activityid},#{item.starttime},#{item.endtime},
+            #{item.ordercntin},#{item.servicerate},#{item.shopname},#{item.skuname},#{item.status},#{item.taobaoActId}
+            ,#{item.commisionratiowl}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        goods_url = values(goods_url),
+        price = values(price),
+        create_time = values(create_time),
+        skuId = values(skuId),
+        unitPrice = values(unitPrice),
+        materialUrl = values(materialUrl),
+        imgUrl = values(imgUrl),
+        shopId = values(shopId),
+        activityId = values(activityId),
+        startTime = values(startTime),
+        endTime = values(endTime),
+        orderCntIn = values(orderCntIn),
+        serviceRate = values(serviceRate),
+        shopName = values(shopName),
+        skuName = values(skuName),
+        status = values(status),
+        taobao_act_id = values(taobao_act_id),
+        commisionRatioWl = values(commisionRatioWl)
+
+
+
+    </insert>
+
 </mapper>

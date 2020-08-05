@@ -147,4 +147,18 @@ public class KZsOrderPayEntity implements Serializable {
 	private Integer shopid;
 
 
+	/**
+	 * 商品落地页-新增
+	 */
+	private String materialurl;
+	/**
+	 * 商品图片
+	 */
+	private String imgurl;
+	/**
+	 * 商家名称
+	 */
+	private String skushopname;
+
+
 }
